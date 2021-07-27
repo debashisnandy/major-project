@@ -26,7 +26,7 @@ const listProducts = (
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     const { data } = await axios.get(
-      '/api/products?category=' +
+      'http://65.0.181.243:5000/api/products?category=' +
         category +
         '&searchKeyword=' +
         searchKeyword +
@@ -46,7 +46,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
       userSignin: { userInfo },
     } = getState();
     if (!product._id) {
-      const { data } = await Axios.post('/api/products', product, {
+      const { data } = await Axios.post('http://65.0.181.243:5000/api/products', product, {
         headers: {
           Authorization: 'Bearer ' + userInfo.token,
         },
@@ -72,7 +72,7 @@ const saveProduct = (product) => async (dispatch, getState) => {
 const detailsProduct = (productId) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST, payload: productId });
-    const { data } = await axios.get('/api/products/' + productId);
+    const { data } = await axios.get('http://65.0.181.243:5000/api/products/' + productId);
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: PRODUCT_DETAILS_FAIL, payload: error.message });
@@ -85,7 +85,7 @@ const deleteProdcut = (productId) => async (dispatch, getState) => {
       userSignin: { userInfo },
     } = getState();
     dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
-    const { data } = await axios.delete('/api/products/' + productId, {
+    const { data } = await axios.delete('http://65.0.181.243:5000/api/products/' + productId, {
       headers: {
         Authorization: 'Bearer ' + userInfo.token,
       },
@@ -105,7 +105,7 @@ const saveProductReview = (productId, review) => async (dispatch, getState) => {
     } = getState();
     dispatch({ type: PRODUCT_REVIEW_SAVE_REQUEST, payload: review });
     const { data } = await axios.post(
-      `/api/products/${productId}/reviews`,
+      `http://65.0.181.243:5000/api/products/${productId}/reviews`,
       review,
       {
         headers: {
